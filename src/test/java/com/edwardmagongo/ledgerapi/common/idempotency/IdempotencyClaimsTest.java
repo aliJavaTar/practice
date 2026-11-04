@@ -1,8 +1,10 @@
 package com.edwardmagongo.ledgerapi.common.idempotency;
 
+import com.edwardmagongo.ledgerapi.account.AccountRepository;
 import com.edwardmagongo.ledgerapi.auth.User;
 import com.edwardmagongo.ledgerapi.auth.UserRepository;
 import com.edwardmagongo.ledgerapi.support.AbstractIntegrationTest;
+import com.edwardmagongo.ledgerapi.transaction.TransactionRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,8 @@ class IdempotencyClaimsTest extends AbstractIntegrationTest {
 
     @Autowired IdempotencyClaims claims;
     @Autowired IdempotencyKeyRepository idempotencyKeyRepository;
+    @Autowired TransactionRepository transactionRepository;
+    @Autowired AccountRepository accountRepository;
     @Autowired UserRepository userRepository;
 
     private UUID aliceId;
@@ -23,6 +27,8 @@ class IdempotencyClaimsTest extends AbstractIntegrationTest {
     @BeforeEach
     void setUp() {
         idempotencyKeyRepository.deleteAll();
+        transactionRepository.deleteAll();
+        accountRepository.deleteAll();
         userRepository.deleteAll();
         aliceId = userRepository.save(new User("alice@example.com", "hash")).getId();
     }
