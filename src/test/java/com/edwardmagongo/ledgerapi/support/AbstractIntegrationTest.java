@@ -30,7 +30,7 @@ public abstract class AbstractIntegrationTest {
 
     @ServiceConnection
     static final PostgreSQLContainer<?> POSTGRES =
-            new PostgreSQLContainer<>("postgres:16-alpine");
+            new PostgreSQLContainer<>("postgres:17-alpine");
 
     static {
         POSTGRES.start();
